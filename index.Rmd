@@ -1,0 +1,88 @@
+---
+title       : Temperature Conversion Application
+subtitle    : 
+author      : Christie Myburgh
+job         : Engineer
+framework   : revealjs       # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js   # {highlight.js, prettify, highlight}
+hitheme     : tomorrow       # 
+widgets     : [mathjax]      # {mathjax, quiz, bootstrap}
+mode        : standalone     # {standalone, selfcontained, draft}
+knit        : slidify::knit2slides
+
+---
+
+### TEMPERATURE CONVERSION APP
+
+$^{\circ} C <=> ^{\circ} F$  
+
+Christie Myburgh
+
+--- 
+
+## Main Features
+
+1. Ease of use.
+  
+2.  Correct conversion formulas.
+
+3. Graphical representation of results.
+
+--- 
+
+## Ease of Use
+
+![](input.PNG)
+
+---
+
+## Conversion Formulas
+
+* Celcius to Fahrenheit
+
+$^{\circ} F = ^{\circ} C * (9/5) + 32$
+
+* Fahrenheit to Celcius
+
+$^{\circ} C = (^{\circ} F  - 32) * (5/9)$
+
+--- 
+
+## Graphical Representation
+
+1. Blue line represent Celcius - Fahrenheit relationship
+
+2. Red point represent user's converted value.
+
+```{r example_plot, echo=FALSE, results = 'asis', fig.width=30, fig.height=20}
+library(ggplot2)
+# degrees celcius vector for plotting.
+celcius <- c(-45, 100)
+# degrees fahrenheit vector for plotting.
+fahrenheit <- c(-49, 212)
+# data frame for plotting.
+data <- data.frame(c = celcius, f = fahrenheit)
+
+xx <- 25
+yy <- 77
+
+print(ggplot(data , aes(c, f)) +
+        geom_line(color = "blue", size = 1) +
+        geom_point(aes(x = xx, y = yy), color = "red", size = 5) +
+        geom_hline(yintercept = yy, color = "red", size = 0.5) +
+        geom_vline(xintercept = xx, color = "red", size = 0.5) +
+        theme(axis.text.x = element_text(size = 20),
+              axis.text.y = element_text(size = 20),
+              plot.title = element_text(size = 40),
+              axis.title.x = element_text(size = 30),
+              axis.title.y = element_text(size = 30)) +
+        scale_x_continuous(breaks =
+                             c(-50,-40,-30,-20,-10,0,10,20,30,40,50,
+                               60,70,80,90,100)) +
+        scale_y_continuous(breaks = c(-50,-25,0,25,50,75,100,125,150,
+                                      175,200)) +
+        labs(y = "Fahrenheit") +
+        labs(x = "Celcius") +
+        labs(title = "Conversion Chart"))
+```
+
